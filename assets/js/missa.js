@@ -13,6 +13,7 @@ const momentosPadrao = [
 ];
 
 const CHAVE = 'missaAtualV01';
+const CHAVE_DADOS_CELEBRACAO = 'missaDadosV01';
 const CHAVE_MODO_CELEBRACAO = 'missaModoCelebracao';
 const CHAVE_FONTE_CELEBRACAO = 'missaFonteCelebracao';
 let musicas = [];
@@ -35,6 +36,63 @@ function salvarEscolhas(escolhas) {
   localStorage.setItem(CHAVE, JSON.stringify(escolhas));
 }
 
+function carregarDadosCelebracao() {
+  try {
+    return JSON.parse(localStorage.getItem(CHAVE_DADOS_CELEBRACAO)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function salvarDadosCelebracao(dados) {
+  const possuiDados = Boolean(dados.nome || dados.data || dados.horario);
+
+  if (possuiDados) {
+    localStorage.setItem(CHAVE_DADOS_CELEBRACAO, JSON.stringify(dados));
+  } else {
+    localStorage.removeItem(CHAVE_DADOS_CELEBRACAO);
+  }
+}
+
+function formatarData(data) {
+  if (!data) return '';
+  const partes = data.split('-');
+  if (partes.length !== 3) return data;
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+function partesIdentificacao(dados) {
+  const partes = [];
+  if (dados.nome) partes.push(dados.nome);
+  if (dados.data) partes.push(formatarData(dados.data));
+  if (dados.horario) partes.push(dados.horario);
+  return partes;
+}
+
+function iniciarDadosCelebracao() {
+  const campoNome = document.querySelector('#celebracaoNome');
+  const campoData = document.querySelector('#celebracaoData');
+  const campoHorario = document.querySelector('#celebracaoHorario');
+  if (!campoNome || !campoData || !campoHorario) return;
+
+  const dados = carregarDadosCelebracao();
+  campoNome.value = dados.nome || '';
+  campoData.value = dados.data || '';
+  campoHorario.value = dados.horario || '';
+
+  function salvar() {
+    salvarDadosCelebracao({
+      nome: campoNome.value.trim(),
+      data: campoData.value,
+      horario: campoHorario.value
+    });
+  }
+
+  campoNome.addEventListener('input', salvar);
+  campoData.addEventListener('change', salvar);
+  campoHorario.addEventListener('change', salvar);
+}
+
 function atualizarResumoMontagem() {
   const resumo = document.querySelector('#resumoEscolhas');
   if (!resumo) return;
@@ -48,6 +106,7 @@ async function iniciarMontagem() {
   const area = document.querySelector('#momentosMissa');
   if (!area) return;
 
+  iniciarDadosCelebracao();
   musicas = await carregarMusicas();
   const escolhas = carregarEscolhas();
 
@@ -176,12 +235,31 @@ function criarItemRoteiro(momento, musica, indice) {
   return item;
 }
 
+function exibirIdentificacaoRoteiro(dados) {
+  const area = document.querySelector('#identificacaoRoteiro');
+  if (!area) return;
+
+  const partes = partesIdentificacao(dados);
+  if (!partes.length) return;
+
+  area.textContent = partes.join(' · ');
+  area.classList.remove('oculto');
+
+  if (dados.nome) {
+    document.title = `Roteiro — ${dados.nome}`;
+  }
+}
+
 async function iniciarRoteiro() {
   const area = document.querySelector('#roteiro');
   if (!area) return;
 
   musicas = await carregarMusicas();
   const escolhas = carregarEscolhas();
+  const dadosCelebracao = carregarDadosCelebracao();
+  const identificacao = partesIdentificacao(dadosCelebracao).join(' · ');
+
+  exibirIdentificacaoRoteiro(dadosCelebracao);
 
   const itens = momentosPadrao
     .filter(momento => escolhas[momento])
@@ -228,6 +306,12 @@ async function iniciarRoteiro() {
   const celebracao = document.querySelector('#celebracao');
   const botaoCifra = document.querySelector('#celebracaoCifra');
   const botaoLetra = document.querySelector('#celebracaoLetra');
+  const celebracaoIdentificacao = document.querySelector('#celebracaoIdentificacao');
+
+  if (celebracaoIdentificacao && identificacao) {
+    celebracaoIdentificacao.textContent = identificacao;
+    celebracaoIdentificacao.classList.remove('oculto');
+  }
 
   function aplicarFonte() {
     celebracao.style.setProperty('--tamanho-celebracao', `${tamanhos[indiceFonte]}rem`);
