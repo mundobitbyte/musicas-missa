@@ -1,15 +1,15 @@
 :root {
-  --fundo: #F3E4C8;
+  --fundo: #F2D79F;
   --superficie: #FFFFFF;
   --texto: #2A2926;
   --texto-suave: #6E675F;
-  --borda: #D9E2EE;
-  --destaque: #1D4F91;
-  --destaque-escuro: #153A6B;
-  --destaque-claro: #EAF1FA;
-  --dourado: #C9973E;
-  --bege: #E6D3B8;
-  --creme-claro: #F8EEDB;
+  --borda: #D6DFE8;
+  --destaque: #3A5E87;
+  --destaque-escuro: #243E5D;
+  --destaque-claro: #E8EEF4;
+  --dourado: #B6812C;
+  --bege: #E4C58B;
+  --creme-claro: #FAEBC7;
   --apoio-quente: #8A6A52;
 }
 
@@ -20,7 +20,7 @@ body {
 
 .topo {
   background: rgba(255,255,255,.97);
-  border-bottom: 2px solid rgba(29,79,145,.16);
+  border-bottom: 2px solid rgba(58,94,135,.18);
 }
 
 .marca {
@@ -41,7 +41,7 @@ nav a:hover {
   margin-top: 30px;
   padding: 52px 34px;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(29,79,145,.08), var(--creme-claro));
+  background: linear-gradient(135deg, rgba(58,94,135,.10), var(--creme-claro));
   border-left: 5px solid var(--destaque);
 }
 
@@ -64,7 +64,7 @@ nav a:hover {
   background: var(--destaque);
   border-color: var(--destaque);
   color: #fff;
-  box-shadow: 0 5px 14px rgba(29,79,145,.18);
+  box-shadow: 0 5px 14px rgba(58,94,135,.20);
 }
 
 .botao.primario:hover {
@@ -80,7 +80,7 @@ nav a:hover {
 .lista-musicas {
   background: #fff;
   border-color: var(--borda);
-  box-shadow: 0 8px 22px rgba(29,79,145,.07);
+  box-shadow: 0 8px 22px rgba(58,94,135,.08);
 }
 
 .atalho-principal {
@@ -96,7 +96,7 @@ nav a:hover {
 }
 
 .categoria {
-  border-left: 3px solid rgba(29,79,145,.58);
+  border-left: 3px solid rgba(58,94,135,.62);
 }
 
 .atalho-principal:hover,
@@ -104,8 +104,8 @@ nav a:hover {
 .card-musica:hover,
 .momento-card:hover,
 .roteiro-item:hover {
-  border-color: rgba(29,79,145,.45);
-  box-shadow: 0 12px 30px rgba(29,79,145,.11);
+  border-color: rgba(58,94,135,.48);
+  box-shadow: 0 12px 30px rgba(58,94,135,.13);
 }
 
 input,
@@ -118,7 +118,7 @@ select,
 .campo-pesquisa input:focus,
 input:focus,
 select:focus {
-  outline: 3px solid rgba(29,79,145,.13);
+  outline: 3px solid rgba(58,94,135,.14);
   border-color: var(--destaque);
 }
 
@@ -137,7 +137,7 @@ select:focus {
   background: var(--destaque);
   color: #fff;
   border-color: var(--destaque);
-  box-shadow: 0 4px 10px rgba(29,79,145,.16);
+  box-shadow: 0 4px 10px rgba(58,94,135,.18);
 }
 
 .linha-musica {
@@ -157,7 +157,7 @@ select:focus {
 .tag {
   background: var(--destaque-claro);
   color: var(--destaque-escuro);
-  border: 1px solid rgba(29,79,145,.10);
+  border: 1px solid rgba(58,94,135,.12);
 }
 
 .bloco-musica {
