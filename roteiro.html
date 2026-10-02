@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roteiro da Missa</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body>
+  <header class="topo somente-tela">
+    <div class="container">
+      <a class="marca" href="index.html">Músicas para a Missa</a>
+      <nav>
+        <a href="repertorio.html">Repertório</a>
+        <a href="montar-missa.html">Editar Missa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container roteiro-container">
+    <section class="cabecalho-pagina">
+      <p class="sobrelinha">Roteiro</p>
+      <h1>Missa preparada</h1>
+      <p class="somente-tela">Abra uma música ou ative o modo celebração para navegar uma a uma.</p>
+    </section>
+
+    <div id="roteiro" class="roteiro"></div>
+
+    <div class="barra-acoes somente-tela">
+      <a class="botao" href="montar-missa.html">Editar escolhas</a>
+      <button id="imprimir" class="botao" type="button">Imprimir</button>
+      <button id="modoCelebracao" class="botao primario" type="button">Modo celebração</button>
+    </div>
+  </main>
+
+  <div id="celebracao" class="celebracao oculto somente-tela">
+    <button id="sairCelebracao" class="fechar-celebracao" type="button">Sair</button>
+    <div class="celebracao-conteudo">
+      <p id="celebracaoMomento" class="sobrelinha"></p>
+      <h1 id="celebracaoTitulo"></h1>
+      <pre id="celebracaoTexto" class="texto-celebracao"></pre>
+    </div>
+    <div class="celebracao-nav">
+      <button id="anterior" type="button">← Anterior</button>
+      <span id="posicaoCelebracao"></span>
+      <button id="proxima" type="button">Próxima →</button>
+    </div>
+  </div>
+
+  <script src="assets/js/missa.js"></script>
+</body>
+</html>
