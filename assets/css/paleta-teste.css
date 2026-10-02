@@ -1,5 +1,5 @@
 :root {
-  --fundo: #F5EEB2;
+  --fundo: #F7F2C7;
   --superficie: #FFFFFF;
   --texto: #2B2A26;
   --texto-suave: #6C675D;
@@ -8,10 +8,10 @@
   --destaque-escuro: #243F62;
   --destaque-claro: #E8EEF5;
   --dourado: #B89235;
-  --bege: #E3D47A;
-  --creme-claro: #FCF8D9;
-  --amarelo-medio: #EFE39A;
-  --amarelo-apoio: #D7C55E;
+  --bege: #E9DFA0;
+  --creme-claro: #FCFAE4;
+  --amarelo-medio: #F2E9B0;
+  --amarelo-apoio: #DECF72;
 }
 
 body {
