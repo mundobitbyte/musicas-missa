@@ -1,5 +1,5 @@
 :root {
-  --fundo: #F6EFE4;
+  --fundo: #F3E4C8;
   --superficie: #FFFFFF;
   --texto: #2A2926;
   --texto-suave: #6E675F;
@@ -9,6 +9,7 @@
   --destaque-claro: #EAF1FA;
   --dourado: #C9973E;
   --bege: #E6D3B8;
+  --creme-claro: #F8EEDB;
   --apoio-quente: #8A6A52;
 }
 
@@ -40,7 +41,7 @@ nav a:hover {
   margin-top: 30px;
   padding: 52px 34px;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(29,79,145,.08), rgba(255,255,255,.74));
+  background: linear-gradient(135deg, rgba(29,79,145,.08), var(--creme-claro));
   border-left: 5px solid var(--destaque);
 }
 
