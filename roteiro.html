@@ -24,6 +24,7 @@
       <p class="sobrelinha">Roteiro</p>
       <h1>Missa preparada</h1>
       <p class="somente-tela">Abra uma música ou ative o modo celebração para navegar uma a uma.</p>
+      <p id="resumoRoteiro" class="resumo-roteiro"></p>
     </section>
 
     <div id="roteiro" class="roteiro"></div>
@@ -35,13 +36,29 @@
     </div>
   </main>
 
-  <div id="celebracao" class="celebracao oculto somente-tela">
-    <button id="sairCelebracao" class="fechar-celebracao" type="button">Sair</button>
+  <div id="celebracao" class="celebracao oculto somente-tela" role="dialog" aria-modal="true" aria-label="Modo celebração">
+    <div class="celebracao-topo">
+      <button id="sairCelebracao" class="fechar-celebracao" type="button">Sair</button>
+      <div class="celebracao-controles" aria-label="Controles de leitura">
+        <div class="controle-segmentado controle-celebracao-modo">
+          <button id="celebracaoCifra" class="ativo" type="button">Letra e cifra</button>
+          <button id="celebracaoLetra" type="button">Somente letra</button>
+        </div>
+        <div class="controle-fonte controle-celebracao-fonte" aria-label="Tamanho do texto">
+          <button id="celebracaoMenor" type="button" aria-label="Diminuir texto">A−</button>
+          <button id="celebracaoNormal" type="button" aria-label="Tamanho normal">A</button>
+          <button id="celebracaoMaior" type="button" aria-label="Aumentar texto">A+</button>
+        </div>
+      </div>
+    </div>
+
     <div class="celebracao-conteudo">
       <p id="celebracaoMomento" class="sobrelinha"></p>
       <h1 id="celebracaoTitulo"></h1>
+      <p id="celebracaoMeta" class="celebracao-meta"></p>
       <pre id="celebracaoTexto" class="texto-celebracao"></pre>
     </div>
+
     <div class="celebracao-nav">
       <button id="anterior" type="button">← Anterior</button>
       <span id="posicaoCelebracao"></span>
