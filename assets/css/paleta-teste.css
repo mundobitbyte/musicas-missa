@@ -1,40 +1,184 @@
 :root {
   --fundo: #F6EFE4;
-  --superficie: #FFF9F1;
+  --superficie: #FFFFFF;
   --texto: #2A2926;
   --texto-suave: #6E675F;
-  --borda: #E6D3B8;
+  --borda: #D9E2EE;
   --destaque: #1D4F91;
   --destaque-escuro: #153A6B;
-  --destaque-claro: #E8F0FA;
+  --destaque-claro: #EAF1FA;
   --dourado: #C9973E;
+  --bege: #E6D3B8;
   --apoio-quente: #8A6A52;
 }
 
-body { background: var(--fundo); color: var(--texto); }
-.topo { background: rgba(255, 249, 241, .96); border-bottom-color: var(--borda); }
-.marca { color: var(--destaque); }
-.sobrelinha { color: var(--dourado); }
-.botao.primario { background: var(--destaque); border-color: var(--destaque); }
-.botao.primario:hover { background: var(--destaque-escuro); }
+body {
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.topo {
+  background: rgba(255,255,255,.97);
+  border-bottom: 2px solid rgba(29,79,145,.16);
+}
+
+.marca {
+  color: var(--destaque);
+}
+
+nav a.ativo {
+  color: var(--destaque);
+  font-weight: 700;
+  border-bottom: 2px solid var(--destaque);
+}
+
+nav a:hover {
+  color: var(--destaque);
+}
+
+.hero {
+  margin-top: 30px;
+  padding: 52px 34px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(29,79,145,.08), rgba(255,255,255,.74));
+  border-left: 5px solid var(--destaque);
+}
+
+.hero h1,
+.cabecalho-pagina h1,
+.secao-titulo h2,
+.musica-detalhe h1 {
+  color: var(--destaque-escuro);
+}
+
+.sobrelinha {
+  color: var(--dourado);
+}
+
+.botao {
+  background: #fff;
+}
+
+.botao.primario {
+  background: var(--destaque);
+  border-color: var(--destaque);
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(29,79,145,.18);
+}
+
+.botao.primario:hover {
+  background: var(--destaque-escuro);
+}
+
 .atalho-principal,
 .categoria,
 .card-musica,
 .momento-card,
 .musica-detalhe,
 .roteiro-item,
-.lista-musicas,
-.filtro-chip { background: var(--superficie); border-color: var(--borda); }
+.lista-musicas {
+  background: #fff;
+  border-color: var(--borda);
+  box-shadow: 0 8px 22px rgba(29,79,145,.07);
+}
+
+.atalho-principal {
+  border-top: 4px solid var(--destaque);
+}
+
+.atalho-titulo,
+.card-musica h2,
+.momento-card h2,
+.roteiro-item h2,
+.linha-musica-titulo {
+  color: var(--destaque-escuro);
+}
+
+.categoria {
+  border-left: 3px solid rgba(29,79,145,.58);
+}
+
 .atalho-principal:hover,
-.categoria:hover { border-color: var(--destaque); box-shadow: 0 10px 28px rgba(29,79,145,.08); }
-.campo-pesquisa input:focus { outline: 3px solid rgba(29,79,145,.14); border-color: var(--destaque); }
-.filtro-chip:hover { border-color: var(--destaque); background: var(--destaque-claro); color: var(--destaque-escuro); }
-.filtro-chip.ativo { background: var(--destaque); color: #fff; border-color: var(--destaque); }
-.linha-musica:hover { background: #FCF7EF; }
+.categoria:hover,
+.card-musica:hover,
+.momento-card:hover,
+.roteiro-item:hover {
+  border-color: rgba(29,79,145,.45);
+  box-shadow: 0 12px 30px rgba(29,79,145,.11);
+}
+
+input,
+select,
+.campo-pesquisa input {
+  background: #fff;
+  border-color: var(--borda);
+}
+
+.campo-pesquisa input:focus,
+input:focus,
+select:focus {
+  outline: 3px solid rgba(29,79,145,.13);
+  border-color: var(--destaque);
+}
+
+.filtro-chip {
+  background: #fff;
+  border-color: var(--borda);
+}
+
+.filtro-chip:hover {
+  border-color: var(--destaque);
+  background: var(--destaque-claro);
+  color: var(--destaque-escuro);
+}
+
+.filtro-chip.ativo {
+  background: var(--destaque);
+  color: #fff;
+  border-color: var(--destaque);
+  box-shadow: 0 4px 10px rgba(29,79,145,.16);
+}
+
+.linha-musica {
+  background: #fff;
+}
+
+.linha-musica:hover {
+  background: var(--destaque-claro);
+}
+
 .linha-musica-seta,
 .roteiro-item a,
-.voltar,
-nav a:hover,
-nav a.ativo { color: var(--destaque); }
-.tag { background: #F0E3D1; }
-.rodape { border-top-color: var(--dourado); }
+.voltar {
+  color: var(--destaque);
+}
+
+.tag {
+  background: var(--destaque-claro);
+  color: var(--destaque-escuro);
+  border: 1px solid rgba(29,79,145,.10);
+}
+
+.bloco-musica {
+  border-top-color: var(--bege);
+}
+
+.rodape {
+  background: var(--destaque-escuro);
+  color: #fff;
+  border-top: 4px solid var(--dourado);
+  margin-top: 70px;
+}
+
+.rodape .container {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    margin-top: 18px;
+    padding: 34px 22px;
+    border-left-width: 4px;
+  }
+}
