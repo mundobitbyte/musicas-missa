@@ -1,0 +1,36 @@
+body {
+  background: #fff;
+  color: #000;
+  font-size: 11pt;
+}
+
+.somente-tela { display: none !important; }
+
+.container {
+  width: 100%;
+  margin: 0;
+}
+
+.cabecalho-pagina {
+  padding: 0 0 12pt;
+}
+
+.cabecalho-pagina h1 {
+  font-size: 20pt;
+}
+
+.roteiro {
+  gap: 8pt;
+}
+
+.roteiro-item {
+  border: 0;
+  box-shadow: none;
+  padding: 8pt 0;
+  border-bottom: 1px solid #bbb;
+}
+
+.roteiro-item a {
+  color: #000;
+  text-decoration: none;
+}
