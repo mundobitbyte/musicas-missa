@@ -1,16 +1,17 @@
 :root {
-  --fundo: #F3E7B8;
+  --fundo: #F5EEB2;
   --superficie: #FFFFFF;
-  --texto: #2A2926;
-  --texto-suave: #6E675F;
-  --borda: #D4DDE7;
-  --destaque: #33557C;
-  --destaque-escuro: #1D3451;
-  --destaque-claro: #E8EEF4;
-  --dourado: #B9932F;
-  --bege: #E8D79C;
-  --creme-claro: #FBF3D6;
-  --apoio-quente: #8A6A52;
+  --texto: #2B2A26;
+  --texto-suave: #6C675D;
+  --borda: #D9E1E9;
+  --destaque: #3B5C86;
+  --destaque-escuro: #243F62;
+  --destaque-claro: #E8EEF5;
+  --dourado: #B89235;
+  --bege: #E3D47A;
+  --creme-claro: #FCF8D9;
+  --amarelo-medio: #EFE39A;
+  --amarelo-apoio: #D7C55E;
 }
 
 body {
@@ -20,7 +21,7 @@ body {
 
 .topo {
   background: rgba(255,255,255,.97);
-  border-bottom: 2px solid rgba(51,85,124,.18);
+  border-bottom: 2px solid rgba(59,92,134,.18);
 }
 
 .marca {
@@ -41,7 +42,7 @@ nav a:hover {
   margin-top: 30px;
   padding: 52px 34px;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(51,85,124,.08), var(--creme-claro));
+  background: linear-gradient(135deg, var(--creme-claro), rgba(255,255,255,.92));
   border-left: 5px solid var(--destaque);
 }
 
@@ -64,7 +65,7 @@ nav a:hover {
   background: var(--destaque);
   border-color: var(--destaque);
   color: #fff;
-  box-shadow: 0 5px 14px rgba(51,85,124,.20);
+  box-shadow: 0 5px 14px rgba(59,92,134,.20);
 }
 
 .botao.primario:hover {
@@ -80,7 +81,7 @@ nav a:hover {
 .lista-musicas {
   background: #fff;
   border-color: var(--borda);
-  box-shadow: 0 8px 22px rgba(51,85,124,.08);
+  box-shadow: 0 8px 22px rgba(59,92,134,.08);
 }
 
 .atalho-principal {
@@ -96,7 +97,7 @@ nav a:hover {
 }
 
 .categoria {
-  border-left: 3px solid rgba(51,85,124,.62);
+  border-left: 3px solid rgba(59,92,134,.62);
 }
 
 .atalho-principal:hover,
@@ -104,8 +105,8 @@ nav a:hover {
 .card-musica:hover,
 .momento-card:hover,
 .roteiro-item:hover {
-  border-color: rgba(51,85,124,.48);
-  box-shadow: 0 12px 30px rgba(51,85,124,.13);
+  border-color: rgba(59,92,134,.48);
+  box-shadow: 0 12px 30px rgba(59,92,134,.13);
 }
 
 input,
@@ -118,7 +119,7 @@ select,
 .campo-pesquisa input:focus,
 input:focus,
 select:focus {
-  outline: 3px solid rgba(51,85,124,.14);
+  outline: 3px solid rgba(59,92,134,.14);
   border-color: var(--destaque);
 }
 
@@ -137,7 +138,7 @@ select:focus {
   background: var(--destaque);
   color: #fff;
   border-color: var(--destaque);
-  box-shadow: 0 4px 10px rgba(51,85,124,.18);
+  box-shadow: 0 4px 10px rgba(59,92,134,.18);
 }
 
 .linha-musica {
@@ -157,7 +158,7 @@ select:focus {
 .tag {
   background: var(--destaque-claro);
   color: var(--destaque-escuro);
-  border: 1px solid rgba(51,85,124,.12);
+  border: 1px solid rgba(59,92,134,.12);
 }
 
 .bloco-musica {
