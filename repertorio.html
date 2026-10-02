@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repertório</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="container">
+      <a class="marca" href="index.html">Músicas para a Missa</a>
+      <nav>
+        <a class="ativo" href="repertorio.html">Repertório</a>
+        <a href="montar-missa.html">Montar Missa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="cabecalho-pagina compacto">
+      <p class="sobrelinha">Repertório</p>
+      <h1>Encontre rápido o que precisa.</h1>
+      <p>Pesquise pelo título ou autor e filtre pelo momento da celebração.</p>
+    </section>
+
+    <section class="painel-repertorio">
+      <label class="campo-pesquisa">
+        <span class="sr-only">Pesquisar música</span>
+        <input id="pesquisa" type="search" placeholder="Pesquisar música ou autor...">
+      </label>
+
+      <div id="filtrosRapidos" class="filtros-rapidos" aria-label="Filtros por momento"></div>
+      <p id="contador" class="contador"></p>
+    </section>
+
+    <div id="listaMusicas" class="lista-musicas"></div>
+  </main>
+
+  <script src="assets/js/repertorio.js"></script>
+</body>
+</html>
