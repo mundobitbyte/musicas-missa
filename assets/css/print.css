@@ -19,6 +19,16 @@ body {
   font-size: 20pt;
 }
 
+.identificacao-roteiro {
+  display: block;
+  margin: 4pt 0 10pt;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #000;
+  font-weight: 700;
+}
+
 .roteiro {
   gap: 8pt;
 }
@@ -28,6 +38,12 @@ body {
   box-shadow: none;
   padding: 8pt 0;
   border-bottom: 1px solid #bbb;
+}
+
+.roteiro-numero {
+  border: 1px solid #bbb;
+  background: #fff;
+  color: #000;
 }
 
 .roteiro-item a {
