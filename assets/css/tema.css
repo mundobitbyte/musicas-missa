@@ -203,6 +203,69 @@ select:focus {
 .texto-musica { font-size: var(--tamanho-musica); }
 .bloco-musica.oculto-modo { display: none; }
 
+/* Dados da celebração */
+.dados-celebracao {
+  margin: 0 0 18px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(59,92,134,.08);
+}
+
+.dados-celebracao-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.dados-celebracao-cabecalho h2 {
+  margin: 2px 0 0;
+  color: var(--destaque-escuro);
+  font-size: 1.2rem;
+}
+
+.dados-celebracao-cabecalho > span {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--creme-claro);
+  border: 1px solid var(--bege);
+  color: var(--texto-suave);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.dados-celebracao-campos {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) minmax(150px, 1fr) minmax(130px, .8fr);
+  gap: 12px;
+}
+
+.dados-celebracao-campos label {
+  display: grid;
+  gap: 6px;
+}
+
+.dados-celebracao-campos label > span {
+  color: var(--texto-suave);
+  font-size: .86rem;
+  font-weight: 700;
+}
+
+.identificacao-roteiro {
+  width: fit-content;
+  max-width: 100%;
+  margin: 8px 0 16px;
+  padding: 9px 12px;
+  border: 1px solid var(--bege);
+  border-radius: 12px;
+  background: var(--creme-claro);
+  color: var(--destaque-escuro);
+  font-weight: 700;
+}
+
 /* Montagem da Missa */
 .resumo-montagem {
   display: flex;
@@ -348,6 +411,13 @@ body.modo-celebracao-aberto { overflow: hidden; }
   padding-bottom: 28px;
 }
 
+.celebracao-identificacao {
+  margin: 0 0 14px;
+  color: #D2DAE3;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
 .celebracao-meta {
   margin: -14px 0 22px;
   color: #AEB9C6;
@@ -393,6 +463,10 @@ body.modo-celebracao-aberto { overflow: hidden; }
 
   .controle-segmentado button {
     flex: 1;
+  }
+
+  .dados-celebracao-campos {
+    grid-template-columns: 1fr;
   }
 
   .resumo-montagem {
