@@ -25,6 +25,33 @@
       <p>Escolha uma música para cada momento. Você pode deixar algum momento sem música.</p>
     </section>
 
+    <section class="dados-celebracao" aria-labelledby="tituloDadosCelebracao">
+      <div class="dados-celebracao-cabecalho">
+        <div>
+          <p class="sobrelinha">Identificação</p>
+          <h2 id="tituloDadosCelebracao">Dados da celebração</h2>
+        </div>
+        <span>Opcional</span>
+      </div>
+
+      <div class="dados-celebracao-campos">
+        <label>
+          <span>Nome ou ocasião</span>
+          <input id="celebracaoNome" type="text" maxlength="80" placeholder="Ex.: 26º Domingo do Tempo Comum">
+        </label>
+
+        <label>
+          <span>Data</span>
+          <input id="celebracaoData" type="date">
+        </label>
+
+        <label>
+          <span>Horário</span>
+          <input id="celebracaoHorario" type="time">
+        </label>
+      </div>
+    </section>
+
     <div class="resumo-montagem" aria-live="polite">
       <strong id="resumoEscolhas">0 de 11 momentos com música</strong>
       <span>As escolhas ficam salvas neste aparelho.</span>
