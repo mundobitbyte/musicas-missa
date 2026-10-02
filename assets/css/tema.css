@@ -203,6 +203,174 @@ select:focus {
 .texto-musica { font-size: var(--tamanho-musica); }
 .bloco-musica.oculto-modo { display: none; }
 
+/* Montagem da Missa */
+.resumo-montagem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  background: var(--creme-claro);
+  border: 1px solid var(--bege);
+  border-radius: 14px;
+  color: var(--texto-suave);
+}
+
+.resumo-montagem strong {
+  color: var(--destaque-escuro);
+  font-size: 1rem;
+}
+
+.momento-card {
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+.momento-card.preenchido {
+  border-color: rgba(59,92,134,.38);
+  box-shadow: 0 10px 24px rgba(59,92,134,.11);
+}
+
+.momento-info {
+  display: grid;
+  gap: 6px;
+}
+
+.momento-status {
+  width: fit-content;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--creme-claro);
+  color: var(--texto-suave);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.momento-card.preenchido .momento-status {
+  background: var(--destaque-claro);
+  color: var(--destaque-escuro);
+}
+
+.momento-escolha {
+  display: grid;
+  gap: 6px;
+}
+
+.momento-meta {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: .86rem;
+}
+
+/* Roteiro */
+.resumo-roteiro {
+  color: var(--destaque-escuro);
+  font-weight: 700;
+}
+
+.roteiro-item {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.roteiro-numero {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--creme-claro);
+  border: 1px solid var(--bege);
+  color: var(--destaque-escuro);
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+.roteiro-conteudo h2 { margin-top: 2px; }
+.roteiro-conteudo .meta { margin-bottom: 8px; }
+.roteiro-vazio a { color: var(--destaque); font-weight: 700; }
+
+/* Modo celebração */
+body.modo-celebracao-aberto { overflow: hidden; }
+
+.celebracao {
+  --tamanho-celebracao: 1.25rem;
+  background: #0E1723;
+}
+
+.celebracao-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  border-bottom: 1px solid #263444;
+}
+
+.celebracao .fechar-celebracao {
+  margin: 0;
+  justify-self: auto;
+}
+
+.celebracao-controles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.celebracao .controle-segmentado button,
+.celebracao .controle-fonte button {
+  min-height: 38px;
+  border-color: #3D4B5C;
+  background: #182432;
+  color: #F6F7F8;
+}
+
+.celebracao .controle-segmentado button.ativo {
+  background: var(--destaque);
+  border-color: #6E88A7;
+  color: #fff;
+}
+
+.celebracao .controle-segmentado button:disabled,
+.celebracao .controle-fonte button:disabled,
+.celebracao-nav button:disabled {
+  opacity: .38;
+  cursor: not-allowed;
+}
+
+.celebracao-conteudo {
+  padding-bottom: 28px;
+}
+
+.celebracao-meta {
+  margin: -14px 0 22px;
+  color: #AEB9C6;
+}
+
+.texto-celebracao {
+  font-size: var(--tamanho-celebracao);
+  line-height: 1.7;
+}
+
+.celebracao-nav {
+  background: #0B121B;
+}
+
+.celebracao-nav button {
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.celebracao-nav button:not(:disabled):hover {
+  background: #2A3A4B;
+  border-color: #61758C;
+}
+
 :focus-visible {
   outline: 3px solid rgba(59,92,134,.34);
   outline-offset: 3px;
@@ -225,5 +393,40 @@ select:focus {
 
   .controle-segmentado button {
     flex: 1;
+  }
+
+  .resumo-montagem {
+    align-items: flex-start;
+  }
+
+  .roteiro-item {
+    grid-template-columns: 42px 1fr;
+    gap: 12px;
+  }
+
+  .roteiro-numero {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .celebracao-topo {
+    align-items: stretch;
+  }
+
+  .celebracao-controles {
+    width: 100%;
+  }
+
+  .controle-celebracao-modo {
+    flex: 1 1 100%;
+  }
+
+  .controle-celebracao-modo button {
+    flex: 1;
+  }
+
+  .controle-celebracao-fonte {
+    margin-left: auto;
   }
 }
