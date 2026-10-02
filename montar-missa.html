@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montar Missa</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="container">
+      <a class="marca" href="index.html">Músicas para a Missa</a>
+      <nav>
+        <a href="repertorio.html">Repertório</a>
+        <a class="ativo" href="montar-missa.html">Montar Missa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="cabecalho-pagina">
+      <p class="sobrelinha">Preparação</p>
+      <h1>Montar uma Missa</h1>
+      <p>Escolha uma música para cada momento. Você pode deixar algum momento sem música.</p>
+    </section>
+
+    <div id="momentosMissa" class="lista-momentos"></div>
+
+    <div class="barra-acoes">
+      <button id="limpar" class="botao" type="button">Limpar escolhas</button>
+      <a id="gerarRoteiro" class="botao primario" href="roteiro.html">Gerar roteiro</a>
+    </div>
+  </main>
+
+  <script src="assets/js/missa.js"></script>
+</body>
+</html>
