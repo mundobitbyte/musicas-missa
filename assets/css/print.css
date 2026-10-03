@@ -1,52 +1,122 @@
+@page {
+  size: A4;
+  margin: 16mm 15mm;
+}
+
 body {
   background: #fff;
   color: #000;
-  font-size: 11pt;
+  font-size: 10.5pt;
+  line-height: 1.35;
 }
 
 .somente-tela { display: none !important; }
 
-.container {
+.container,
+.roteiro-container {
   width: 100%;
+  max-width: none;
   margin: 0;
+  padding: 0;
 }
 
 .cabecalho-pagina {
-  padding: 0 0 12pt;
+  padding: 0 0 10pt;
+  margin: 0;
+  border-bottom: 1.5pt solid #222;
+}
+
+.cabecalho-pagina .sobrelinha {
+  margin: 0 0 3pt;
+  color: #000;
+  font-size: 8pt;
+  letter-spacing: .06em;
+  text-transform: uppercase;
 }
 
 .cabecalho-pagina h1 {
+  margin: 0 0 4pt;
+  color: #000;
   font-size: 20pt;
+  line-height: 1.1;
 }
 
 .identificacao-roteiro {
   display: block;
-  margin: 4pt 0 10pt;
+  width: auto;
+  max-width: none;
+  margin: 5pt 0 4pt;
   padding: 0;
   border: 0;
   background: transparent;
   color: #000;
+  font-size: 10.5pt;
   font-weight: 700;
 }
 
+.resumo-roteiro {
+  margin: 3pt 0 0;
+  color: #333;
+  font-size: 9pt;
+  font-weight: 400;
+}
+
 .roteiro {
-  gap: 8pt;
+  display: block;
+  margin-top: 8pt;
 }
 
 .roteiro-item {
+  display: grid;
+  grid-template-columns: 28pt 1fr;
+  gap: 7pt;
+  align-items: start;
+  margin: 0;
+  padding: 6pt 0;
   border: 0;
+  border-bottom: .6pt solid #bbb;
+  border-radius: 0;
   box-shadow: none;
-  padding: 8pt 0;
-  border-bottom: 1px solid #bbb;
+  background: #fff;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .roteiro-numero {
-  border: 1px solid #bbb;
+  display: grid;
+  place-items: center;
+  width: 24pt;
+  height: 24pt;
+  border: .7pt solid #777;
+  border-radius: 6pt;
   background: #fff;
   color: #000;
+  font-size: 8pt;
+  font-weight: 700;
 }
 
-.roteiro-item a {
+.roteiro-conteudo .sobrelinha {
+  margin: 0 0 1pt;
+  color: #333;
+  font-size: 7.5pt;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.roteiro-conteudo h2 {
+  margin: 0 0 2pt;
   color: #000;
-  text-decoration: none;
+  font-size: 12pt;
+  line-height: 1.2;
+}
+
+.roteiro-conteudo .meta {
+  margin: 0;
+  color: #333;
+  font-size: 9pt;
+}
+
+.roteiro-conteudo > a,
+.roteiro-item a {
+  display: none !important;
 }
