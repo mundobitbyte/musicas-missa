@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/tema.css">
   <link rel="stylesheet" href="assets/css/tela-ativa.css">
+  <link rel="stylesheet" href="assets/css/lista-celebracao.css">
   <link rel="stylesheet" href="assets/css/print.css" media="print">
 </head>
 <body>
@@ -47,7 +48,10 @@
 
   <div id="celebracao" class="celebracao oculto somente-tela" role="dialog" aria-modal="true" aria-label="Modo celebração">
     <div class="celebracao-topo">
-      <button id="sairCelebracao" class="fechar-celebracao" type="button">Sair</button>
+      <div class="celebracao-acoes-principais">
+        <button id="sairCelebracao" class="fechar-celebracao" type="button">Sair</button>
+        <button id="abrirListaCelebracao" class="botao-lista-celebracao" type="button" aria-expanded="false" aria-controls="listaCelebracao">Lista</button>
+      </div>
       <div class="celebracao-controles" aria-label="Controles de leitura">
         <div class="controle-segmentado controle-celebracao-modo">
           <button id="celebracaoCifra" class="ativo" type="button">Letra e cifra</button>
@@ -75,6 +79,19 @@
       <span id="posicaoCelebracao"></span>
       <button id="proxima" type="button">Próxima →</button>
     </div>
+
+    <div id="listaCelebracao" class="celebracao-lista oculto" aria-hidden="true">
+      <section class="celebracao-lista-painel" role="dialog" aria-labelledby="tituloListaCelebracao">
+        <div class="celebracao-lista-cabecalho">
+          <div>
+            <p class="sobrelinha">Roteiro</p>
+            <h2 id="tituloListaCelebracao">Ir para um momento</h2>
+          </div>
+          <button id="fecharListaCelebracao" class="celebracao-lista-fechar" type="button">Fechar</button>
+        </div>
+        <div id="itensListaCelebracao" class="celebracao-lista-itens"></div>
+      </section>
+    </div>
   </div>
 
   <script src="assets/js/site.js"></script>
@@ -84,5 +101,6 @@
   <script src="assets/js/transposicao.js"></script>
   <script src="assets/js/tela-ativa.js"></script>
   <script src="assets/js/gestos-celebracao.js"></script>
+  <script src="assets/js/lista-celebracao.js"></script>
 </body>
 </html>
