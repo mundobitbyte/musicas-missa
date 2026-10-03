@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#243F62">
+  <meta name="description" content="Ferramenta local para preparar cadastros de músicas do repertório.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/img/icone-app.svg" type="image/svg+xml">
+  <title>Cadastro de música — Músicas para a Missa</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/tema.css">
+  <link rel="stylesheet" href="assets/css/cadastro-musica.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="container">
+      <a class="marca" href="index.html">Músicas para a Missa</a>
+      <nav>
+        <a href="repertorio.html">Repertório</a>
+        <a href="montar-missa.html">Montar Missa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container cadastro-musica-container">
+    <section class="cabecalho-pagina compacto">
+      <p class="sobrelinha">Ferramenta de manutenção</p>
+      <h1>Preparar cadastro de música</h1>
+      <p>Cole a letra, revise, acrescente as cifras e gere um cadastro pronto para incorporar ao repertório.</p>
+      <div class="aviso-cadastro" role="note">
+        <strong>Este piloto não publica nada automaticamente.</strong>
+        <span>O rascunho fica somente neste aparelho e, ao final, você gera um JSON para revisão.</span>
+      </div>
+    </section>
+
+    <form id="formCadastroMusica" class="cadastro-musica-form" novalidate>
+      <section class="cadastro-painel" aria-labelledby="tituloIdentificacaoMusica">
+        <div class="cadastro-painel-cabecalho">
+          <div>
+            <p class="sobrelinha">1 · Identificação</p>
+            <h2 id="tituloIdentificacaoMusica">Dados da música</h2>
+          </div>
+          <span id="statusRascunho" class="cadastro-status" role="status" aria-live="polite">Rascunho local</span>
+        </div>
+
+        <div class="cadastro-grade tres-colunas">
+          <label>
+            <span>ID</span>
+            <input id="musicaId" name="id" type="text" inputmode="numeric" maxlength="20" placeholder="Ex.: 011" required>
+          </label>
+
+          <label class="campo-largo">
+            <span>Título</span>
+            <input id="musicaTitulo" name="titulo" type="text" maxlength="120" placeholder="Título da música" required>
+          </label>
+
+          <label>
+            <span>Tom original</span>
+            <input id="musicaTom" name="tom" type="text" maxlength="12" placeholder="Ex.: G">
+          </label>
+        </div>
+
+        <div class="cadastro-grade duas-colunas">
+          <label>
+            <span>Autor / compositor</span>
+            <input id="musicaAutor" name="autor" type="text" maxlength="160" placeholder="Nome do autor ou compositor">
+          </label>
+
+          <label>
+            <span>Link no YouTube</span>
+            <input id="musicaYoutube" name="youtube" type="url" maxlength="500" placeholder="https://...">
+          </label>
+        </div>
+
+        <fieldset class="cadastro-momentos">
+          <legend>Momento(s) da Missa</legend>
+          <div id="momentosCadastro" class="cadastro-momentos-grade"></div>
+        </fieldset>
+      </section>
+
+      <section class="cadastro-painel" aria-labelledby="tituloFonteDireitos">
+        <div class="cadastro-painel-cabecalho">
+          <div>
+            <p class="sobrelinha">2 · Origem</p>
+            <h2 id="tituloFonteDireitos">Fonte e direitos</h2>
+          </div>
+        </div>
+
+        <div class="cadastro-grade duas-colunas">
+          <label>
+            <span>Fonte / site</span>
+            <input id="musicaFonte" name="fonte" type="text" maxlength="200" placeholder="Ex.: site oficial, folheto, arquivo próprio">
+          </label>
+
+          <label>
+            <span>URL da fonte</span>
+            <input id="musicaFonteUrl" name="fonteUrl" type="url" maxlength="500" placeholder="https://...">
+          </label>
+        </div>
+
+        <label>
+          <span>Situação dos direitos</span>
+          <select id="musicaDireitos" name="direitos" required>
+            <option value="">Escolha uma situação</option>
+            <option value="proprio-autorizado">Conteúdo próprio ou autorizado</option>
+            <option value="dominio-publico">Domínio público</option>
+            <option value="verificar-autorizacao">Autorização a verificar</option>
+            <option value="somente-link">Somente link — não republicar letra/cifra</option>
+          </select>
+        </label>
+
+        <p id="avisoDireitos" class="cadastro-ajuda" aria-live="polite"></p>
+      </section>
+
+      <section class="cadastro-painel" aria-labelledby="tituloLetra">
+        <div class="cadastro-painel-cabecalho">
+          <div>
+            <p class="sobrelinha">3 · Letra</p>
+            <h2 id="tituloLetra">Cole e revise a letra</h2>
+          </div>
+          <span id="contadorLetra" class="cadastro-status">0 caracteres</span>
+        </div>
+
+        <label>
+          <span class="sr-only">Letra da música</span>
+          <textarea id="musicaLetra" name="letra" rows="16" placeholder="Cole aqui a letra encontrada ou recebida. Depois remova títulos repetidos, propagandas, observações do site de origem e outros elementos que não façam parte da música."></textarea>
+        </label>
+      </section>
+
+      <section class="cadastro-painel" aria-labelledby="tituloCifra">
+        <div class="cadastro-painel-cabecalho">
+          <div>
+            <p class="sobrelinha">4 · Cifra</p>
+            <h2 id="tituloCifra">Prepare letra e cifra</h2>
+          </div>
+          <button id="usarLetraNaCifra" class="botao" type="button">Usar letra como base da cifra</button>
+        </div>
+
+        <p class="cadastro-ajuda">Insira os acordes nas linhas acima dos trechos correspondentes. A letra original permanece separada.</p>
+        <label>
+          <span class="sr-only">Letra com cifra</span>
+          <textarea id="musicaCifra" name="cifra" rows="18" class="editor-cifra" spellcheck="false" placeholder="Ex.:&#10;G                 D&#10;Primeira linha da música&#10;Em                C&#10;Segunda linha da música"></textarea>
+        </label>
+      </section>
+
+      <section class="cadastro-painel" aria-labelledby="tituloObservacoes">
+        <div class="cadastro-painel-cabecalho">
+          <div>
+            <p class="sobrelinha">5 · Revisão</p>
+            <h2 id="tituloObservacoes">Observações</h2>
+          </div>
+        </div>
+
+        <label>
+          <span>Observações internas ou úteis ao músico</span>
+          <textarea id="musicaObservacoes" name="observacoes" rows="5" maxlength="1000" placeholder="Ex.: iniciar mais baixo, repetir refrão, versão usada pela comunidade..."></textarea>
+        </label>
+      </section>
+
+      <div class="barra-acoes cadastro-acoes-principais">
+        <button id="novoCadastro" class="botao" type="button">Novo cadastro</button>
+        <button id="salvarRascunho" class="botao" type="button">Salvar rascunho</button>
+        <button id="gerarCadastro" class="botao primario" type="button">Gerar cadastro</button>
+      </div>
+    </form>
+
+    <section id="resultadoCadastro" class="cadastro-painel resultado-cadastro" aria-labelledby="tituloResultadoCadastro" hidden>
+      <div class="cadastro-painel-cabecalho">
+        <div>
+          <p class="sobrelinha">Resultado</p>
+          <h2 id="tituloResultadoCadastro">Cadastro pronto para revisão</h2>
+        </div>
+      </div>
+
+      <div id="resumoValidacao" class="aviso-cadastro" role="status" aria-live="polite"></div>
+      <pre id="saidaJson" class="saida-json" tabindex="0"></pre>
+
+      <div class="barra-acoes">
+        <button id="copiarJson" class="botao primario" type="button">Copiar JSON</button>
+        <button id="baixarJson" class="botao" type="button">Baixar .json</button>
+      </div>
+      <p id="statusSaida" class="cadastro-ajuda" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/cadastro-musica.js"></script>
+</body>
+</html>
