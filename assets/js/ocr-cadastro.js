@@ -58,7 +58,7 @@
           <span>Texto extraído — revise antes de usar</span>
           <textarea id="textoExtraidoOcr" rows="12" spellcheck="true"></textarea>
         </label>
-        <p class="cadastro-ajuda">Em imagens com cifras, confira principalmente acordes e alinhamento. O OCR tenta preservar os espaços entre os acordes, mas a revisão continua necessária.</p>
+        <p class="cadastro-ajuda">Para cifras, o sistema reconstrói as linhas usando a posição horizontal reconhecida na imagem. Isso preserva melhor a relação entre acordes e letra, mas a revisão final continua necessária.</p>
         <div class="barra-acoes">
           <button id="usarOcrLetra" class="botao primario" type="button" disabled>Enviar para Letra</button>
           <button id="usarOcrCifra" class="botao" type="button" disabled>Enviar para Cifra</button>
@@ -228,6 +228,110 @@
     return worker;
   }
 
+  function linhasDosBlocos(blocks) {
+    if (!Array.isArray(blocks)) return [];
+
+    const linhas = [];
+    blocks.forEach(bloco => {
+      (bloco?.paragraphs || []).forEach(paragrafo => {
+        (paragrafo?.lines || []).forEach(linha => {
+          const palavras = (linha?.words || [])
+            .map(palavra => ({
+              texto: String(palavra?.text || '').trim(),
+              bbox: palavra?.bbox
+            }))
+            .filter(palavra =>
+              palavra.texto &&
+              Number.isFinite(palavra.bbox?.x0) &&
+              Number.isFinite(palavra.bbox?.x1) &&
+              Number.isFinite(palavra.bbox?.y0) &&
+              Number.isFinite(palavra.bbox?.y1)
+            );
+
+          if (!palavras.length) return;
+          palavras.sort((a, b) => a.bbox.x0 - b.bbox.x0);
+          linhas.push({
+            palavras,
+            x0: Math.min(...palavras.map(p => p.bbox.x0)),
+            y0: Math.min(...palavras.map(p => p.bbox.y0)),
+            y1: Math.max(...palavras.map(p => p.bbox.y1))
+          });
+        });
+      });
+    });
+
+    return linhas.sort((a, b) => {
+      const toleranciaVertical = Math.max(4, Math.min(a.y1 - a.y0, b.y1 - b.y0) * 0.45);
+      if (Math.abs(a.y0 - b.y0) <= toleranciaVertical) return a.x0 - b.x0;
+      return a.y0 - b.y0;
+    });
+  }
+
+  function mediana(valores) {
+    if (!valores.length) return 0;
+    const ordenados = [...valores].sort((a, b) => a - b);
+    const meio = Math.floor(ordenados.length / 2);
+    return ordenados.length % 2
+      ? ordenados[meio]
+      : (ordenados[meio - 1] + ordenados[meio]) / 2;
+  }
+
+  function larguraMediaCaractere(linhas) {
+    const medidas = [];
+
+    linhas.forEach(linha => {
+      linha.palavras.forEach(palavra => {
+        const caracteres = Array.from(palavra.texto).length;
+        const largura = palavra.bbox.x1 - palavra.bbox.x0;
+        if (caracteres > 0 && largura > 0) {
+          const porCaractere = largura / caracteres;
+          if (Number.isFinite(porCaractere) && porCaractere > 1) medidas.push(porCaractere);
+        }
+      });
+    });
+
+    return mediana(medidas) || 10;
+  }
+
+  function inserirEmLinha(linha, texto, colunaDesejada) {
+    const caracteres = Array.from(texto);
+    let coluna = Math.max(0, Math.round(colunaDesejada));
+
+    while (linha.length < coluna) linha.push(' ');
+
+    const ocupado = linha.slice(coluna, coluna + caracteres.length).some(caractere => caractere && caractere !== ' ');
+    if (ocupado) {
+      coluna = linha.length ? linha.length + 1 : 0;
+      while (linha.length < coluna) linha.push(' ');
+    }
+
+    caracteres.forEach((caractere, indice) => {
+      linha[coluna + indice] = caractere;
+    });
+  }
+
+  function reconstruirComPosicoes(blocks) {
+    const linhas = linhasDosBlocos(blocks);
+    if (!linhas.length) return '';
+
+    const todasPalavras = linhas.flatMap(linha => linha.palavras);
+    const origemX = Math.min(...todasPalavras.map(palavra => palavra.bbox.x0));
+    const larguraCaractere = larguraMediaCaractere(linhas);
+
+    const resultado = linhas.map(linha => {
+      const caracteres = [];
+
+      linha.palavras.forEach(palavra => {
+        const coluna = (palavra.bbox.x0 - origemX) / larguraCaractere;
+        inserirEmLinha(caracteres, palavra.texto, coluna);
+      });
+
+      return caracteres.join('').replace(/\s+$/g, '');
+    });
+
+    return resultado.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  }
+
   async function extrairTexto() {
     if (!imagemAtual || processando) return;
 
@@ -240,18 +344,27 @@
     try {
       const Tesseract = await carregarBiblioteca();
       const ocr = await obterWorker(Tesseract);
-      const retorno = await ocr.recognize(imagemAtual, { rotateAuto: true });
-      const texto = String(retorno?.data?.text || '')
+      const retorno = await ocr.recognize(
+        imagemAtual,
+        { rotateAuto: true },
+        { text: true, blocks: true }
+      );
+
+      const textoPosicionado = reconstruirComPosicoes(retorno?.data?.blocks);
+      const textoSimples = String(retorno?.data?.text || '')
         .replace(/\f/g, '')
         .replace(/\r\n/g, '\n')
         .trim();
+      const texto = textoPosicionado || textoSimples;
 
       textoExtraido.value = texto;
       resultado.hidden = false;
       definirProgresso(100);
 
       if (texto) {
-        definirStatus('Texto extraído com preservação de espaçamento. Revise abaixo antes de enviar para Letra ou Cifra.');
+        definirStatus(textoPosicionado
+          ? 'Texto extraído e reconstruído pelas posições da imagem. Confira o alinhamento antes de enviar para Cifra.'
+          : 'Texto extraído. Não foi possível reconstruir as posições; revise antes de enviar para Letra ou Cifra.');
         textoExtraido.focus();
       } else {
         definirStatus('Nenhum texto foi reconhecido. Tente uma imagem mais nítida ou com maior resolução.');
