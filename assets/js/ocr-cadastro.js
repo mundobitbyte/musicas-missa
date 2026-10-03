@@ -58,7 +58,7 @@
           <span>Texto extraído — revise antes de usar</span>
           <textarea id="textoExtraidoOcr" rows="12" spellcheck="true"></textarea>
         </label>
-        <p class="cadastro-ajuda">Em imagens com cifras, confira principalmente acordes e alinhamento. O OCR pode reconhecer o texto corretamente e ainda deslocar espaços.</p>
+        <p class="cadastro-ajuda">Em imagens com cifras, confira principalmente acordes e alinhamento. O OCR tenta preservar os espaços entre os acordes, mas a revisão continua necessária.</p>
         <div class="barra-acoes">
           <button id="usarOcrLetra" class="botao primario" type="button" disabled>Enviar para Letra</button>
           <button id="usarOcrCifra" class="botao" type="button" disabled>Enviar para Cifra</button>
@@ -221,6 +221,10 @@
       }
     });
 
+    await worker.setParameters({
+      preserve_interword_spaces: '1'
+    });
+
     return worker;
   }
 
@@ -247,7 +251,7 @@
       definirProgresso(100);
 
       if (texto) {
-        definirStatus('Texto extraído. Revise abaixo antes de enviar para Letra ou Cifra.');
+        definirStatus('Texto extraído com preservação de espaçamento. Revise abaixo antes de enviar para Letra ou Cifra.');
         textoExtraido.focus();
       } else {
         definirStatus('Nenhum texto foi reconhecido. Tente uma imagem mais nítida ou com maior resolução.');
