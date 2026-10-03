@@ -304,6 +304,7 @@ async function iniciarRoteiro() {
   if (!Number.isInteger(indiceFonte) || indiceFonte < 0 || indiceFonte >= tamanhos.length) indiceFonte = 1;
 
   const celebracao = document.querySelector('#celebracao');
+  const botaoModoCelebracao = document.querySelector('#modoCelebracao');
   const botaoCifra = document.querySelector('#celebracaoCifra');
   const botaoLetra = document.querySelector('#celebracaoLetra');
   const celebracaoIdentificacao = document.querySelector('#celebracaoIdentificacao');
@@ -350,6 +351,8 @@ async function iniciarRoteiro() {
     botaoLetra.disabled = !temLetra;
     botaoCifra.classList.toggle('ativo', modoEfetivo === 'cifra');
     botaoLetra.classList.toggle('ativo', modoEfetivo === 'letra');
+    botaoCifra.setAttribute('aria-pressed', String(modoEfetivo === 'cifra'));
+    botaoLetra.setAttribute('aria-pressed', String(modoEfetivo === 'letra'));
 
     document.querySelector('#posicaoCelebracao').textContent = `${indice + 1} / ${itens.length}`;
     document.querySelector('#anterior').disabled = indice === 0;
@@ -359,9 +362,10 @@ async function iniciarRoteiro() {
   function sairCelebracao() {
     celebracao.classList.add('oculto');
     document.body.classList.remove('modo-celebracao-aberto');
+    botaoModoCelebracao.focus();
   }
 
-  document.querySelector('#modoCelebracao').addEventListener('click', () => {
+  botaoModoCelebracao.addEventListener('click', () => {
     indice = 0;
     aplicarFonte();
     exibir();
