@@ -1,4 +1,78 @@
 (() => {
+  function criarInterfaceSeNecessario() {
+    if (document.querySelector('#zonaImagemCadastro')) return;
+
+    const tituloLetra = document.querySelector('#tituloLetra');
+    const secaoLetra = tituloLetra?.closest('.cadastro-painel');
+    if (!secaoLetra) return;
+
+    const secaoCifra = document.querySelector('#tituloCifra')?.closest('.cadastro-painel');
+    const secaoObservacoes = document.querySelector('#tituloObservacoes')?.closest('.cadastro-painel');
+
+    const sobrelinhaLetra = secaoLetra.querySelector('.sobrelinha');
+    const sobrelinhaCifra = secaoCifra?.querySelector('.sobrelinha');
+    const sobrelinhaObservacoes = secaoObservacoes?.querySelector('.sobrelinha');
+    if (sobrelinhaLetra) sobrelinhaLetra.textContent = '4 · Letra';
+    if (sobrelinhaCifra) sobrelinhaCifra.textContent = '5 · Cifra';
+    if (sobrelinhaObservacoes) sobrelinhaObservacoes.textContent = '6 · Revisão';
+
+    const secao = document.createElement('section');
+    secao.className = 'cadastro-painel';
+    secao.setAttribute('aria-labelledby', 'tituloImagemOcr');
+    secao.innerHTML = `
+      <div class="cadastro-painel-cabecalho">
+        <div>
+          <p class="sobrelinha">3 · Imagem <span class="ocr-opcional">opcional</span></p>
+          <h2 id="tituloImagemOcr">Colar ou enviar imagem da letra/cifra</h2>
+        </div>
+      </div>
+
+      <p class="cadastro-ajuda ocr-introducao">Cole uma imagem com <strong>Ctrl+V</strong> ou escolha uma foto/print. O reconhecimento acontece no navegador; a imagem não entra no JSON nem no rascunho.</p>
+
+      <div id="zonaImagemCadastro" class="ocr-zona" tabindex="0" role="group" aria-labelledby="tituloImagemOcr">
+        <div class="ocr-zona-texto">
+          <strong>Cole a imagem aqui</strong>
+          <span>ou escolha uma imagem do celular/computador</span>
+        </div>
+        <label class="botao ocr-escolher" for="arquivoImagemCadastro">Escolher imagem</label>
+        <input id="arquivoImagemCadastro" class="sr-only" type="file" accept="image/*">
+      </div>
+
+      <figure id="previewImagemWrap" class="ocr-preview" hidden>
+        <img id="previewImagemCadastro" alt="">
+        <figcaption id="nomeImagemCadastro"></figcaption>
+      </figure>
+
+      <div class="barra-acoes ocr-acoes">
+        <button id="extrairTextoImagem" class="botao primario" type="button" disabled>Extrair texto da imagem</button>
+        <button id="limparImagemCadastro" class="botao" type="button" disabled>Limpar imagem</button>
+      </div>
+
+      <div class="ocr-andamento">
+        <progress id="progressoOcr" max="100" value="0" aria-label="Progresso do reconhecimento de texto"></progress>
+        <p id="statusOcr" class="cadastro-ajuda" role="status" aria-live="polite"></p>
+      </div>
+
+      <div id="resultadoOcr" class="ocr-resultado" hidden>
+        <label>
+          <span>Texto extraído — revise antes de usar</span>
+          <textarea id="textoExtraidoOcr" rows="12" spellcheck="true"></textarea>
+        </label>
+        <p class="cadastro-ajuda">Em imagens com cifras, confira principalmente acordes e alinhamento. O OCR pode reconhecer o texto corretamente e ainda deslocar espaços.</p>
+        <div class="barra-acoes">
+          <button id="usarOcrLetra" class="botao primario" type="button" disabled>Enviar para Letra</button>
+          <button id="usarOcrCifra" class="botao" type="button" disabled>Enviar para Cifra</button>
+        </div>
+      </div>
+
+      <p class="cadastro-ajuda ocr-nota-rede">Na primeira utilização, o OCR precisa de internet para carregar o mecanismo e o idioma português. Depois disso o navegador pode reaproveitar arquivos já carregados.</p>
+    `;
+
+    secaoLetra.parentNode.insertBefore(secao, secaoLetra);
+  }
+
+  criarInterfaceSeNecessario();
+
   const zona = document.querySelector('#zonaImagemCadastro');
   const arquivoInput = document.querySelector('#arquivoImagemCadastro');
   const previewArea = document.querySelector('#previewImagemWrap');
