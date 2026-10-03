@@ -166,14 +166,13 @@ function criarUsoNaMissa(musica) {
 
       acoes.appendChild(botao);
     });
+
+    const abrirMontagem = criarElemento('a', 'botao', 'Ver montagem da Missa');
+    abrirMontagem.href = 'montar-missa.html';
+    acoes.appendChild(abrirMontagem);
   }
 
-  const abrirMontagem = criarElemento('a', 'botao', 'Ver montagem da Missa');
-  abrirMontagem.href = 'montar-missa.html';
-  acoes.appendChild(abrirMontagem);
-
   atualizarBotoes();
-
   secao.append(cabecalho, explicacao, acoes, status);
   return secao;
 }
