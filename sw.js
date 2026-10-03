@@ -1,4 +1,4 @@
-const CACHE = 'musicas-missa-v14';
+const CACHE = 'musicas-missa-v15';
 
 const ARQUIVOS_ESSENCIAIS = [
   './',
@@ -52,19 +52,45 @@ self.addEventListener('activate', event => {
   );
 });
 
-async function redePrimeiro(request) {
+function chaveParaCache(request) {
+  if (request.mode !== 'navigate') return request;
+
+  const url = new URL(request.url);
+  url.search = '';
+  url.hash = '';
+  return url.toString();
+}
+
+async function redePrimeiro(request, permitirHomeComoFallback = false) {
+  let respostaRede = null;
+
   try {
-    const resposta = await fetch(request);
-    if (resposta && resposta.ok) {
+    respostaRede = await fetch(request);
+
+    if (respostaRede && respostaRede.ok) {
       const cache = await caches.open(CACHE);
-      cache.put(request, resposta.clone());
+      cache.put(chaveParaCache(request), respostaRede.clone());
+      return respostaRede;
     }
-    return resposta;
   } catch {
-    const emCache = await caches.match(request, { ignoreSearch: true });
-    if (emCache) return emCache;
-    return caches.match('./index.html');
+    respostaRede = null;
   }
+
+  const emCache = await caches.match(request, { ignoreSearch: true });
+  if (emCache) return emCache;
+
+  if (respostaRede) return respostaRede;
+
+  if (permitirHomeComoFallback) {
+    const home = await caches.match('./index.html');
+    if (home) return home;
+  }
+
+  return new Response('Recurso indisponível no momento.', {
+    status: 503,
+    statusText: 'Service Unavailable',
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+  });
 }
 
 async function cachePrimeiro(request) {
@@ -86,7 +112,12 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (request.mode === 'navigate' || url.pathname.endsWith('/data/musicas.json')) {
+  if (request.mode === 'navigate') {
+    event.respondWith(redePrimeiro(request, true));
+    return;
+  }
+
+  if (url.pathname.endsWith('/data/musicas.json')) {
     event.respondWith(redePrimeiro(request));
     return;
   }
