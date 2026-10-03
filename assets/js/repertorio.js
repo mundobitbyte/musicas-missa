@@ -1,5 +1,6 @@
 let musicas = [];
 let momentoAtivo = '';
+let somenteFavoritas = false;
 
 async function carregarMusicas() {
   const resposta = await fetch('data/musicas.json');
@@ -12,6 +13,10 @@ function normalizar(texto) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
+}
+
+function musicaFavorita(id) {
+  return Boolean(window.MusicasMissaFavoritos?.tem(id));
 }
 
 function criarFiltros() {
@@ -29,19 +34,27 @@ function criarFiltros() {
     return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
   });
 
-  const opcoes = ['Todas', ...momentos];
+  const opcoes = [
+    { rotulo: 'Todas', valor: '', tipo: 'momento' },
+    { rotulo: '★ Favoritas', valor: '', tipo: 'favoritas' },
+    ...momentos.map(momento => ({ rotulo: momento, valor: momento, tipo: 'momento' }))
+  ];
 
-  opcoes.forEach(rotulo => {
+  opcoes.forEach(opcao => {
     const botao = document.createElement('button');
     botao.type = 'button';
     botao.className = 'filtro-chip';
-    botao.textContent = rotulo;
+    botao.textContent = opcao.rotulo;
 
-    const valor = rotulo === 'Todas' ? '' : rotulo;
-    if (valor === momentoAtivo) botao.classList.add('ativo');
+    const ativo = opcao.tipo === 'favoritas'
+      ? somenteFavoritas
+      : !somenteFavoritas && opcao.valor === momentoAtivo;
+    if (ativo) botao.classList.add('ativo');
 
     botao.addEventListener('click', () => {
-      momentoAtivo = valor;
+      somenteFavoritas = opcao.tipo === 'favoritas';
+      momentoAtivo = somenteFavoritas ? '' : opcao.valor;
+
       document.querySelectorAll('.filtro-chip').forEach(b => b.classList.remove('ativo'));
       botao.classList.add('ativo');
       desenhar();
@@ -62,7 +75,8 @@ function desenhar() {
     ].join(' '));
 
     return (!termo || texto.includes(termo)) &&
-           (!momentoAtivo || musica.momentos.includes(momentoAtivo));
+           (!momentoAtivo || musica.momentos.includes(momentoAtivo)) &&
+           (!somenteFavoritas || musicaFavorita(musica.id));
   });
 
   const lista = document.querySelector('#listaMusicas');
@@ -74,7 +88,9 @@ function desenhar() {
   if (!filtradas.length) {
     const vazio = document.createElement('div');
     vazio.className = 'estado-vazio';
-    vazio.textContent = 'Nenhuma música encontrada.';
+    vazio.textContent = somenteFavoritas
+      ? 'Nenhuma música foi marcada como favorita ainda.'
+      : 'Nenhuma música encontrada.';
     lista.appendChild(vazio);
     return;
   }
@@ -89,7 +105,9 @@ function desenhar() {
 
     const titulo = document.createElement('strong');
     titulo.className = 'linha-musica-titulo';
-    titulo.textContent = musica.titulo;
+    titulo.textContent = musicaFavorita(musica.id)
+      ? `★ ${musica.titulo}`
+      : musica.titulo;
 
     const autor = document.createElement('span');
     autor.className = 'linha-musica-autor';
@@ -123,9 +141,15 @@ async function iniciar() {
 
   criarFiltros();
   document.querySelector('#pesquisa').addEventListener('input', desenhar);
+  window.addEventListener('musicasmissa:favoritos-alterados', desenhar);
   desenhar();
 }
 
 iniciar().catch(erro => {
-  document.querySelector('#listaMusicas').innerHTML = `<div class="estado-vazio">${erro.message}</div>`;
+  const lista = document.querySelector('#listaMusicas');
+  lista.innerHTML = '';
+  const vazio = document.createElement('div');
+  vazio.className = 'estado-vazio';
+  vazio.textContent = erro.message;
+  lista.appendChild(vazio);
 });
