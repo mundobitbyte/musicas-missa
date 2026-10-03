@@ -5,3 +5,27 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+
+let eventoInstalacao = null;
+const botaoInstalar = document.querySelector('#instalarApp');
+
+window.addEventListener('beforeinstallprompt', evento => {
+  evento.preventDefault();
+  eventoInstalacao = evento;
+  if (botaoInstalar) botaoInstalar.hidden = false;
+});
+
+if (botaoInstalar) {
+  botaoInstalar.addEventListener('click', async () => {
+    if (!eventoInstalacao) return;
+    eventoInstalacao.prompt();
+    await eventoInstalacao.userChoice;
+    eventoInstalacao = null;
+    botaoInstalar.hidden = true;
+  });
+}
+
+window.addEventListener('appinstalled', () => {
+  eventoInstalacao = null;
+  if (botaoInstalar) botaoInstalar.hidden = true;
+});
