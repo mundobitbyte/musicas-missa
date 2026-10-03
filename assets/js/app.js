@@ -225,7 +225,8 @@ function configurarControlesMusica(area, blocoCifra, blocoLetra) {
   aumentar.setAttribute('aria-label', 'Aumentar texto');
 
   const tamanhos = [0.9, 1, 1.15, 1.3, 1.5];
-  const salvo = Number(localStorage.getItem('musicasMissaTamanhoTexto'));
+  const salvoBruto = localStorage.getItem('musicasMissaTamanhoTexto');
+  const salvo = salvoBruto === null ? NaN : Number(salvoBruto);
   let indice = Number.isInteger(salvo) && salvo >= 0 && salvo < tamanhos.length ? salvo : 1;
 
   function aplicarTamanho() {
