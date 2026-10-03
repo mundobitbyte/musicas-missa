@@ -1,0 +1,117 @@
+.celebracao-acoes-principais {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.celebracao .botao-lista-celebracao,
+.celebracao-lista-fechar {
+  min-height: 38px;
+  border: 1px solid #3D4B5C;
+  border-radius: 999px;
+  background: #182432;
+  color: #F6F7F8;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.celebracao .botao-lista-celebracao:hover,
+.celebracao-lista-fechar:hover {
+  background: #2A3A4B;
+  border-color: #61758C;
+}
+
+.celebracao-lista {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  overflow: auto;
+  background: rgba(7, 12, 18, .86);
+}
+
+.celebracao-lista-painel {
+  width: min(620px, 100%);
+  max-height: calc(100dvh - 36px);
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid #334355;
+  border-radius: 20px;
+  background: #111C28;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, .42);
+}
+
+.celebracao-lista-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.celebracao-lista-cabecalho h2 {
+  margin: 2px 0 0;
+  color: #fff;
+  font-size: 1.35rem;
+}
+
+.celebracao-lista-itens {
+  display: grid;
+  gap: 8px;
+}
+
+.celebracao-lista-item {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  min-height: 62px;
+  padding: 11px 13px;
+  border: 1px solid #334355;
+  border-radius: 13px;
+  background: #182432;
+  color: #F6F7F8;
+  text-align: left;
+  cursor: pointer;
+}
+
+.celebracao-lista-item:hover {
+  background: #223244;
+  border-color: #61758C;
+}
+
+.celebracao-lista-item.ativo {
+  background: #2A3A4B;
+  border-color: #7D96B2;
+  box-shadow: inset 3px 0 0 #B89235;
+}
+
+.celebracao-lista-item strong {
+  font-size: .86rem;
+  color: #D5DEE8;
+}
+
+.celebracao-lista-item span {
+  font-size: 1rem;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .celebracao-acoes-principais {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .celebracao-lista {
+    align-items: end;
+    padding: 10px;
+  }
+
+  .celebracao-lista-painel {
+    width: 100%;
+    max-height: min(82dvh, 760px);
+    border-radius: 18px 18px 12px 12px;
+    padding: 16px;
+  }
+}
