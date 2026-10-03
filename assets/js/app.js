@@ -104,6 +104,34 @@ function criarBlocoMusica(titulo, conteudo, modo) {
   return secao;
 }
 
+function criarControleFavorito(musica) {
+  const favoritos = window.MusicasMissaFavoritos;
+  if (!favoritos) return null;
+
+  const area = criarElemento('div', 'acoes');
+  const botao = criarElemento('button', 'botao');
+  botao.type = 'button';
+
+  function atualizar() {
+    const ativa = favoritos.tem(musica.id);
+    botao.textContent = ativa ? '★ Favorita' : '☆ Favoritar';
+    botao.setAttribute('aria-pressed', String(ativa));
+    botao.setAttribute(
+      'aria-label',
+      ativa ? `Remover ${musica.titulo} dos favoritos` : `Adicionar ${musica.titulo} aos favoritos`
+    );
+  }
+
+  botao.addEventListener('click', () => {
+    favoritos.alternar(musica.id);
+    atualizar();
+  });
+
+  atualizar();
+  area.appendChild(botao);
+  return area;
+}
+
 function criarUsoNaMissa(musica) {
   const secao = criarElemento('section', 'dados-celebracao');
   secao.setAttribute('aria-labelledby', 'tituloUsarNaMissa');
@@ -285,6 +313,9 @@ async function iniciarMusica() {
       `Autor: ${musica.autor || '—'} · Tom: ${musica.tom || '—'}`
     )
   );
+
+  const controleFavorito = criarControleFavorito(musica);
+  if (controleFavorito) area.appendChild(controleFavorito);
 
   if (Array.isArray(musica.momentos) && musica.momentos.length) {
     area.appendChild(criarUsoNaMissa(musica));
