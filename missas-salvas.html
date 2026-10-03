@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#243F62">
+  <meta name="description" content="Consulte e reutilize Missas salvas neste aparelho.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/img/icone-app.svg" type="image/svg+xml">
+  <title>Missas salvas</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/tema.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="container">
+      <a class="marca" href="index.html">Músicas para a Missa</a>
+      <nav>
+        <a href="repertorio.html">Repertório</a>
+        <a href="montar-missa.html">Montar Missa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container roteiro-container">
+    <section class="cabecalho-pagina compacto">
+      <p class="sobrelinha">Arquivo local</p>
+      <h1>Missas salvas</h1>
+      <p>Guarde preparações prontas para consultar ou reutilizar depois. Elas ficam somente neste aparelho.</p>
+      <p id="contadorMissasSalvas" class="resumo-roteiro"></p>
+    </section>
+
+    <div id="listaMissasSalvas" class="roteiro"></div>
+
+    <div class="barra-acoes">
+      <a class="botao" href="index.html">Voltar à Home</a>
+      <a class="botao primario" href="montar-missa.html">Montar uma Missa</a>
+    </div>
+  </main>
+
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/missas-salvas.js"></script>
+</body>
+</html>
