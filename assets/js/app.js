@@ -1,4 +1,6 @@
 const ARQUIVO_MUSICAS = 'data/musicas.json';
+const CHAVE_MISSA_ATUAL = 'missaAtualV01';
+const CHAVE_DADOS_CELEBRACAO = 'missaDadosV01';
 
 async function carregarMusicas() {
   const resposta = await fetch(ARQUIVO_MUSICAS);
@@ -25,6 +27,52 @@ function criarElemento(tag, classe, texto) {
   if (classe) elemento.className = classe;
   if (texto !== undefined) elemento.textContent = texto;
   return elemento;
+}
+
+function lerObjetoLocal(chave) {
+  try {
+    return JSON.parse(localStorage.getItem(chave)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function formatarDataHome(data) {
+  if (!data) return '';
+  const partes = data.split('-');
+  if (partes.length !== 3) return data;
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+function iniciarMissaAtualHome() {
+  const area = document.querySelector('#missaAtualHome');
+  if (!area) return;
+
+  const escolhas = lerObjetoLocal(CHAVE_MISSA_ATUAL);
+  const dados = lerObjetoLocal(CHAVE_DADOS_CELEBRACAO);
+  const quantidade = momentosPadrao.filter(momento => escolhas[momento]).length;
+  const possuiIdentificacao = Boolean(dados.nome || dados.data || dados.horario);
+
+  if (!quantidade && !possuiIdentificacao) return;
+
+  const partes = [];
+  if (dados.nome) partes.push(dados.nome);
+  if (dados.data) partes.push(formatarDataHome(dados.data));
+  if (dados.horario) partes.push(dados.horario);
+
+  partes.push(
+    quantidade
+      ? `${quantidade} de ${momentosPadrao.length} momentos com música`
+      : 'Nenhuma música escolhida ainda'
+  );
+
+  const meta = document.querySelector('#missaAtualMeta');
+  if (meta) meta.textContent = partes.join(' · ');
+
+  const roteiro = document.querySelector('#abrirRoteiroAtual');
+  if (roteiro) roteiro.hidden = quantidade === 0;
+
+  area.hidden = false;
 }
 
 function iniciarHome() {
@@ -189,6 +237,7 @@ async function iniciarMusica() {
   }
 }
 
+iniciarMissaAtualHome();
 iniciarHome();
 iniciarMusica().catch(erro => {
   const area = document.querySelector('#detalheMusica');
