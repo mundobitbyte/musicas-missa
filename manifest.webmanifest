@@ -1,0 +1,19 @@
+{
+  "name": "Músicas para a Missa",
+  "short_name": "Músicas Missa",
+  "description": "Repertório, preparação e roteiro de músicas para a celebração da Missa.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F2C7",
+  "theme_color": "#243F62",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "assets/img/icone-app.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
