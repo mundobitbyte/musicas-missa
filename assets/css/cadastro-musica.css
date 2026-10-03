@@ -176,6 +176,119 @@
   line-height: 1.55;
 }
 
+.ocr-opcional {
+  margin-left: 6px;
+  color: var(--texto-suave);
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.ocr-introducao {
+  margin-bottom: 14px;
+}
+
+.ocr-zona {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 104px;
+  padding: 18px;
+  border: 2px dashed rgba(59,92,134,.38);
+  border-radius: 16px;
+  background: var(--destaque-claro);
+}
+
+.ocr-zona:focus-visible {
+  outline: 3px solid rgba(59,92,134,.28);
+  outline-offset: 3px;
+}
+
+.ocr-zona-texto {
+  display: grid;
+  gap: 4px;
+}
+
+.ocr-zona-texto strong {
+  color: var(--destaque-escuro);
+}
+
+.ocr-zona-texto span {
+  color: var(--texto-suave);
+  font-size: .9rem;
+}
+
+.ocr-escolher {
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.ocr-preview {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 0;
+}
+
+.ocr-preview[hidden] {
+  display: none;
+}
+
+.ocr-preview img {
+  display: block;
+  max-width: min(100%, 720px);
+  max-height: 520px;
+  object-fit: contain;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.ocr-preview figcaption {
+  color: var(--texto-suave);
+  font-size: .82rem;
+}
+
+.ocr-acoes {
+  margin-top: 14px;
+}
+
+.ocr-andamento {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.ocr-andamento progress {
+  width: 100%;
+  height: 10px;
+}
+
+.ocr-andamento .cadastro-ajuda {
+  margin-top: 0;
+}
+
+.ocr-resultado {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--borda);
+}
+
+.ocr-resultado[hidden] {
+  display: none;
+}
+
+.ocr-resultado textarea {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+.ocr-nota-rede {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--borda);
+}
+
 @media (max-width: 760px) {
   .cadastro-grade.duas-colunas,
   .cadastro-grade.tres-colunas {
@@ -189,6 +302,15 @@
 
   .cadastro-painel-cabecalho .botao,
   .cadastro-status {
+    align-self: flex-start;
+  }
+
+  .ocr-zona {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ocr-escolher {
     align-self: flex-start;
   }
 }
