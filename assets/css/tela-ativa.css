@@ -1,0 +1,17 @@
+.celebracao-tela-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 7px 11px;
+  border: 1px solid #3D4B5C;
+  border-radius: 999px;
+  background: #182432;
+  color: #D2DAE3;
+  font-size: .78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.celebracao-tela-status[hidden] {
+  display: none;
+}
