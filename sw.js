@@ -1,4 +1,4 @@
-const CACHE = 'musicas-missa-v7';
+const CACHE = 'musicas-missa-v8';
 
 const ARQUIVOS_ESSENCIAIS = [
   './',
@@ -11,6 +11,7 @@ const ARQUIVOS_ESSENCIAIS = [
   './assets/img/icone-app.svg',
   './assets/css/style.css',
   './assets/css/tema.css',
+  './assets/css/tela-ativa.css',
   './assets/css/print.css',
   './assets/js/site.js',
   './assets/js/app.js',
@@ -20,6 +21,7 @@ const ARQUIVOS_ESSENCIAIS = [
   './assets/js/nova-missa.js',
   './assets/js/fluxo-escolha.js',
   './assets/js/transposicao.js',
+  './assets/js/tela-ativa.js',
   './data/musicas.json'
 ];
 
