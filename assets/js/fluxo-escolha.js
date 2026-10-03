@@ -71,10 +71,15 @@ function destacarDestinoNaMusica() {
   const area = document.querySelector('#detalheMusica');
   if (!area) return;
 
+  const voltarRepertorio = document.querySelector('main > a.voltar');
+  if (voltarRepertorio) {
+    voltarRepertorio.href = `repertorio.html?momento=${encodeURIComponent(destinoMissa)}&destino=${encodeURIComponent(destinoMissa)}`;
+  }
+
   function atualizar() {
     const secoes = [...area.querySelectorAll('section.dados-celebracao')];
     const secao = secoes.find(item => item.querySelector('h2')?.textContent.trim() === 'Usar nesta Missa');
-    if (!secao || secao.dataset.destinoPreparado === '1') return;
+    if (!secao) return;
 
     const explicacao = secao.querySelector('.momento-meta');
     if (explicacao) {
@@ -86,10 +91,10 @@ function destacarDestinoNaMusica() {
       const botaoDestino = [...acoes.querySelectorAll('button')].find(botao =>
         botao.textContent.includes(destinoMissa)
       );
-      if (botaoDestino) acoes.prepend(botaoDestino);
+      if (botaoDestino && acoes.firstElementChild !== botaoDestino) {
+        acoes.prepend(botaoDestino);
+      }
     }
-
-    secao.dataset.destinoPreparado = '1';
   }
 
   atualizar();
