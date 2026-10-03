@@ -1,4 +1,4 @@
-const CACHE = 'musicas-missa-v15';
+const CACHE = 'musicas-missa-v16';
 
 const ARQUIVOS_ESSENCIAIS = [
   './',
