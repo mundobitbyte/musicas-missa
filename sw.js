@@ -1,4 +1,4 @@
-const CACHE = 'musicas-missa-v1';
+const CACHE = 'musicas-missa-v2';
 
 const ARQUIVOS_ESSENCIAIS = [
   './',
@@ -7,6 +7,8 @@ const ARQUIVOS_ESSENCIAIS = [
   './musica.html',
   './montar-missa.html',
   './roteiro.html',
+  './manifest.webmanifest',
+  './assets/img/icone-app.svg',
   './assets/css/style.css',
   './assets/css/tema.css',
   './assets/css/print.css',
