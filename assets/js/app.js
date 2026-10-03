@@ -104,6 +104,80 @@ function criarBlocoMusica(titulo, conteudo, modo) {
   return secao;
 }
 
+function criarUsoNaMissa(musica) {
+  const secao = criarElemento('section', 'dados-celebracao');
+  secao.setAttribute('aria-labelledby', 'tituloUsarNaMissa');
+
+  const cabecalho = criarElemento('div', 'dados-celebracao-cabecalho');
+  const tituloArea = document.createElement('div');
+  tituloArea.append(
+    criarElemento('p', 'sobrelinha', 'Preparação'),
+    criarElemento('h2', '', 'Usar nesta Missa')
+  );
+  tituloArea.querySelector('h2').id = 'tituloUsarNaMissa';
+  cabecalho.appendChild(tituloArea);
+
+  const explicacao = criarElemento(
+    'p',
+    'momento-meta',
+    'Escolha em qual momento da celebração esta música entrará.'
+  );
+
+  const acoes = criarElemento('div', 'acoes');
+  const status = criarElemento('p', 'momento-meta');
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+
+  function atualizarBotoes() {
+    const escolhas = lerObjetoLocal(CHAVE_MISSA_ATUAL);
+    acoes.innerHTML = '';
+
+    musica.momentos.forEach(momento => {
+      const jaEscolhida = escolhas[momento] === musica.id;
+      const botao = criarElemento(
+        'button',
+        jaEscolhida ? 'botao primario' : 'botao',
+        jaEscolhida ? `${momento} · escolhida` : `Usar em ${momento}`
+      );
+      botao.type = 'button';
+      botao.setAttribute('aria-pressed', String(jaEscolhida));
+
+      botao.addEventListener('click', () => {
+        const atuais = lerObjetoLocal(CHAVE_MISSA_ATUAL);
+        const anteriorId = atuais[momento];
+
+        if (anteriorId === musica.id) {
+          status.textContent = `${musica.titulo} já está escolhida para ${momento}.`;
+          return;
+        }
+
+        if (anteriorId) {
+          const substituir = window.confirm(
+            `Já existe uma música escolhida para ${momento}. Deseja substituí-la por “${musica.titulo}”?`
+          );
+          if (!substituir) return;
+        }
+
+        atuais[momento] = musica.id;
+        localStorage.setItem(CHAVE_MISSA_ATUAL, JSON.stringify(atuais));
+        status.textContent = `${musica.titulo} foi adicionada ao momento ${momento}.`;
+        atualizarBotoes();
+      });
+
+      acoes.appendChild(botao);
+    });
+  }
+
+  const abrirMontagem = criarElemento('a', 'botao', 'Ver montagem da Missa');
+  abrirMontagem.href = 'montar-missa.html';
+  acoes.appendChild(abrirMontagem);
+
+  atualizarBotoes();
+
+  secao.append(cabecalho, explicacao, acoes, status);
+  return secao;
+}
+
 function configurarControlesMusica(area, blocoCifra, blocoLetra) {
   const controles = criarElemento('div', 'controles-musica');
 
@@ -211,6 +285,10 @@ async function iniciarMusica() {
       `Autor: ${musica.autor || '—'} · Tom: ${musica.tom || '—'}`
     )
   );
+
+  if (Array.isArray(musica.momentos) && musica.momentos.length) {
+    area.appendChild(criarUsoNaMissa(musica));
+  }
 
   if (musica.youtube) {
     const acoes = criarElemento('div', 'acoes');
